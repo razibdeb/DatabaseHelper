@@ -22,18 +22,18 @@ typedef enum
     INVALID_COMUMN_TYPE,
     TABLE_CREATION_FAILED,
     TABLE_CREATION_SUCCESS
-}result;
+}db_result;
 
 @interface RCDDbHelper : NSObject
 {
     sqlite3 *database;
-    //NSArray *COLUMN_TYPES = @[@"",@""];
+
 }
--(bool)executeCommand:(NSString *)sql;
--(bool)executeQuery:(NSString *)sql statement:(sqlite3_stmt **)statement;
+
 +(RCDDbHelper *)getInstance;
--(result) createTableWithTableName:(NSString* )tableName WithColumnName:(NSArray *)columnNameArray withColumnType:(NSArray *) columnTypeArray withColVerifyEnabled:(bool) shouldVerifyColumnName;
+
+-(db_result) createTableWithTableName:(NSString* )tableName WithColumnName:(NSArray *)columnNameArray withColumnType:(NSArray *) columnTypeArray withColVerifyEnabled:(bool) shouldVerifyColumnName;
+
+-(db_result) insertDataIntoTable:(NSString *) tableName WithDataDictionary:(NSDictionary *) dict;
+
 @end
-
-
-//libsqlite3.dylib

@@ -16,7 +16,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    RCDDbHelper *helper = [RCDDbHelper getInstance];
+    NSArray *columnNameArray = @[@"a",@"b",@"c"];
+    NSArray *columnTypeArray = @[@"TEXT",@"NUMERIC",@"INTEGER"];
+    [helper createTableWithTableName:@"tableName" WithColumnName:columnNameArray withColumnType:columnTypeArray withColVerifyEnabled:YES];
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+    [dict setObject:@"TEXT" forKey:@"a"];
+    [dict setObject:@(10.50) forKey:@"b"];
+    [dict setObject:@(50) forKey:@"c"];
+    [helper insertDataIntoTable:@"tableName" WithDataDictionary:dict];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "RCDDbHelper.h"
 @interface ViewController : UIViewController
 
 
