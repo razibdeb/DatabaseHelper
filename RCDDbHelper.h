@@ -33,7 +33,14 @@ typedef enum
 +(RCDDbHelper *)getInstance;
 
 -(db_result) createTableWithTableName:(NSString* )tableName WithColumnName:(NSArray *)columnNameArray withColumnType:(NSArray *) columnTypeArray withColVerifyEnabled:(bool) shouldVerifyColumnName;
-
+ß
 -(db_result) insertDataIntoTable:(NSString *) tableName WithDataDictionary:(NSDictionary *) dict;
 
+//-(NSArray *) getRowsFromTable:(NSString *) tableName withWhere:(NSString *) whereStatement;
+
+-(NSArray *) getRecordsOfTable:(NSString *) tableName where:(NSString *)whereStmt;
+
+
+-(NSArray *) getColumnNamesOfTable:(NSString*)tableName;
+-(NSArray *) getColumnNamesForStatement:(sqlite3_stmt*) statement;
 @end

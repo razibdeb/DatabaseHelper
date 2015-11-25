@@ -27,6 +27,10 @@
     [dict setObject:@(10.50) forKey:@"b"];
     [dict setObject:@(50) forKey:@"c"];
     [helper insertDataIntoTable:@"tableName" WithDataDictionary:dict];
+    
+    //[helper getRowsFromTable:@"tableName" withWhere:nil];
+    
+    NSArray *colName = [helper getRecordsOfTable:@"tableName" where:nil];
 }
 
 - (void)didReceiveMemoryWarning {
