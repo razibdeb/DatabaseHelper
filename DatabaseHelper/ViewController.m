@@ -16,7 +16,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    helper = [RCDDbHelper getInstance];
     
+    /*
     RCDDbHelper *helper = [RCDDbHelper getInstance];
     NSArray *columnNameArray = @[@"a",@"b",@"c"];
     NSArray *columnTypeArray = @[@"TEXT",@"NUMERIC",@"INTEGER"];
@@ -31,6 +33,8 @@
     //[helper getRowsFromTable:@"tableName" withWhere:nil];
     
     NSArray *colName = [helper getRecordsOfTable:@"tableName" where:nil];
+     
+     */
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,4 +42,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)createTableButtonTouched:(id)sender {
+    
+    NSString *command = @"CREATE TABLE students ( id integer primary key autoincrement, name text, age integer, marks integer) ";
+    [helper executeCommand:command];
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"insertData"]) {
+        InsertVC *destViewController = segue.destinationViewController;
+        destViewController.helper = helper;
+    }
+}
 @end

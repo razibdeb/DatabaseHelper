@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "RCDDbHelper.h"
+#import "InsertVC.h"
 @interface ViewController : UIViewController
-
+{
+    RCDDbHelper *helper;
+}
+- (IBAction)createTableButtonTouched:(id)sender;
 
 @end
 

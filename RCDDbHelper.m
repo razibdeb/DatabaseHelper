@@ -64,10 +64,16 @@ int const SQLITE_TABLE_COLUMN_TYPES_SIZE = 5;
 {
     sqlite3_stmt *statement;
     const char *sql_stmt = [sql UTF8String];
-    if(sqlite3_prepare_v2(database, sql_stmt,-1, &statement, NULL) == SQLITE_OK) {
+    int resultCode = sqlite3_prepare_v2(database, sql_stmt,-1, &statement, NULL);
+    if(resultCode == SQLITE_OK) {
         bool done = sqlite3_step(statement) == SQLITE_DONE;
         sqlite3_finalize(statement);
         return done;
+    }
+    else
+    {
+        NSLog(@"Error In executing command : %@",sql);
+        NSLog(@"Error Code %d",resultCode);
     }
     return false;
 }
@@ -236,7 +242,7 @@ int const SQLITE_TABLE_COLUMN_TYPES_SIZE = 5;
     {
         NSLog(@"Failed to prepare statement with rc:%d",rc);
     }
-    //sqlite3_close(db);
+    sqlite3_close(database);
     return dataArray;
 }
 
@@ -287,55 +293,50 @@ int const SQLITE_TABLE_COLUMN_TYPES_SIZE = 5;
                                &errMsg    /* Error msg written here */
                                ) ;
     
-    
-    
-    
     if (!(result == SQLITE_OK)) {
         NSLog(@"ERROR: %s",errMsg);
+        NSLog(@"%s: failure: '%s' (%d)", __FUNCTION__, sqlite3_errmsg(database), result);
         sqlite3_free(errMsg) ;
     }
     else {
-        int j ;
-        if (j<nColumns) {
-            int i ;
-            columnNames = [[NSMutableArray alloc] init] ;
-            for (i=0; i<nRows; i++) {
-                [columnNames addObject:[NSString stringWithFormat:@"%s",results[(i+1)*nColumns + 1] ]] ;
-            }
+        int i ;
+        columnNames = [[NSMutableArray alloc] init] ;
+        for (i=0; i<nRows; i++) {
+            [columnNames addObject:[NSString stringWithFormat:@"%s",results[(i+1)*nColumns + 1] ]] ;
         }
     }
     sqlite3_free_table(results) ;
-    
+    //sqlite3_close(database);
+    NSLog(@"ColumnNames: %@", columnNames );
+    NSLog(@"%s: step failure: '%s' (%d)", __FUNCTION__, sqlite3_errmsg(database), result);
     return columnNames ;
 }
 
 -(NSArray *) getRecordsOfTable:(NSString*) tableName where:(NSString *)whereStmt
 {
     NSMutableArray * rowArray =[[NSMutableArray alloc] init];
-    //    sqlite3* database = NULL;
+
     sqlite3_stmt* stmt =NULL;
     int rc=0;
-    //    rc = sqlite3_open_v2([filePath UTF8String], &db, SQLITE_OPEN_READONLY , NULL);
-    //    if (SQLITE_OK != rc)
-    //    {
-    //        sqlite3_close(db);
-    //        NSLog(@"Failed to open db connection");
-    //    }
-    //    else
-    //    {
+
+    
     NSString  * query = [NSString stringWithFormat:@"SELECT * from %@",tableName];
     if(whereStmt)
     {
         query = [query stringByAppendingFormat:@" WHERE %@",whereStmt];
     }
     
+    NSArray *columnNames = [ self getColumnNamesOfTable:tableName];
+    
     rc =sqlite3_prepare_v2(database, [query UTF8String], -1, &stmt, NULL);
     if(rc == SQLITE_OK)
     {
+        
+        
         while (sqlite3_step(stmt) == SQLITE_ROW) //get each row in loop
         {
             NSMutableDictionary *rowDictionary = [[NSMutableDictionary alloc] init];
-            NSArray *columnNames = [ self getColumnNamesOfTable:tableName];
+            
             int columnCount = 0;
             for (NSString *columnName in columnNames) {
                 //get column name
@@ -349,15 +350,9 @@ int const SQLITE_TABLE_COLUMN_TYPES_SIZE = 5;
                 
                 columnCount++;
             }
-            // NSString * name =[NSString stringWithUTF8String:(const char *)sqlite3_column_text(stmt, 1)];
-            // NSInteger age =  sqlite3_column_int(stmt, 2);
-            // NSInteger marks =  sqlite3_column_int(stmt, 3);
-            
-            //                NSDictionary *rowData =[NSDictionary dictionaryWithObjectsAndKeys:name,@"name",
-            //                                        [NSNumber numberWithInteger:age],@"age",[NSNumber numberWithInteger:marks], @"marks",nil];
+
             if([rowDictionary count] > 0)
                 [rowArray addObject:rowDictionary];
-            //  NSLog(@"name: %@, age=%ld , marks =%ld",name,(long)age,(long)marks);
             
         }
         NSLog(@"Done  %@", rowArray);
@@ -367,9 +362,7 @@ int const SQLITE_TABLE_COLUMN_TYPES_SIZE = 5;
     {
         NSLog(@"Failed to prepare statement with rc:%d",rc);
     }
-    sqlite3_close(database);
-    //    }
-    
+    //sqlite3_close(database);
     return rowArray;
     
 }

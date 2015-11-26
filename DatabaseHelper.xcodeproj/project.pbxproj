@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E2D897B1C074E4C00F6CA5C /* InsertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2D897A1C074E4C00F6CA5C /* InsertVC.m */; };
+		6E2D897E1C0763EE00F6CA5C /* ShowDataVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2D897D1C0763EE00F6CA5C /* ShowDataVC.m */; };
 		6EDBCF6B1C03723300CC9961 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EDBCF6A1C03723300CC9961 /* main.m */; };
 		6EDBCF6E1C03723300CC9961 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EDBCF6D1C03723300CC9961 /* AppDelegate.m */; };
 		6EDBCF711C03723300CC9961 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EDBCF701C03723300CC9961 /* ViewController.m */; };
@@ -18,6 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6E2D89791C074E4C00F6CA5C /* InsertVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InsertVC.h; sourceTree = "<group>"; };
+		6E2D897A1C074E4C00F6CA5C /* InsertVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsertVC.m; sourceTree = "<group>"; };
+		6E2D897C1C0763EE00F6CA5C /* ShowDataVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowDataVC.h; sourceTree = "<group>"; };
+		6E2D897D1C0763EE00F6CA5C /* ShowDataVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowDataVC.m; sourceTree = "<group>"; };
 		6EDBCF661C03723300CC9961 /* DatabaseHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DatabaseHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EDBCF6A1C03723300CC9961 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6EDBCF6C1C03723300CC9961 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -45,6 +51,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E2D89781C074E3000F6CA5C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				6E2D89791C074E4C00F6CA5C /* InsertVC.h */,
+				6E2D897A1C074E4C00F6CA5C /* InsertVC.m */,
+				6E2D897C1C0763EE00F6CA5C /* ShowDataVC.h */,
+				6E2D897D1C0763EE00F6CA5C /* ShowDataVC.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		6EDBCF5D1C03723300CC9961 = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +83,7 @@
 		6EDBCF681C03723300CC9961 /* DatabaseHelper */ = {
 			isa = PBXGroup;
 			children = (
+				6E2D89781C074E3000F6CA5C /* ViewControllers */,
 				6EDBCF6C1C03723300CC9961 /* AppDelegate.h */,
 				6EDBCF6D1C03723300CC9961 /* AppDelegate.m */,
 				6EDBCF6F1C03723300CC9961 /* ViewController.h */,
@@ -168,8 +186,10 @@
 			files = (
 				6EDBCF711C03723300CC9961 /* ViewController.m in Sources */,
 				6EDBCF6E1C03723300CC9961 /* AppDelegate.m in Sources */,
+				6E2D897B1C074E4C00F6CA5C /* InsertVC.m in Sources */,
 				6EDBCF6B1C03723300CC9961 /* main.m in Sources */,
 				6EDBCF961C03786500CC9961 /* RCDDbHelper.m in Sources */,
+				6E2D897E1C0763EE00F6CA5C /* ShowDataVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +338,7 @@
 				6EDBCF7F1C03723400CC9961 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
